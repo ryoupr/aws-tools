@@ -13,8 +13,10 @@
 
 ## スクリプト一覧
 
-- **delete_vpcs.py**: 指定したVPC内のすべてのリソースを削除し、VPC自体を削除します。
-- **delete_s3_buckets.py**: バケット一覧を表示し、選択したバケットを削除します。
+- **attach_tag_to_ebs.sh**: EBSボリュームにタグを付与します。
+- **delete-s3-bucket.py**: バケット一覧を表示し、選択したバケットを削除します。
+- **delete-vpcs.py**: 指定したVPC内のすべてのリソースを削除し、VPC自体を削除します。
+- **install-and-update-cli-v2.sh**: AWS CLI v2のインストールと更新を行います。
 
 ## 前提条件
 
@@ -27,7 +29,7 @@
 1. リポジトリをクローンします。
 
     \`\`\`bash
-    git clone https://github.com/yourusername/aws-tools.git
+    git clone https://github.com/ryoupr/aws-tools.git
     cd aws-tools
     \`\`\`
 
@@ -45,29 +47,51 @@
 
 ## スクリプトの使用方法
 
-### delete_vpcs.py
+### attach_tag_to_ebs.sh
 
-指定したVPC内のすべてのリソースを削除し、VPC自体を削除します。
+EBSボリュームにタグを付与します。
 
 \`\`\`bash
-python delete_vpcs.py <vpc-id>
+sh attach_tag_to_ebs.sh <volume-id> <tag-key> <tag-value>
 \`\`\`
 
 例：
 
 \`\`\`bash
-python delete_vpcs.py vpc-0a1b2c3d4e5f6g7h
+sh attach_tag_to_ebs.sh vol-0a1b2c3d4e5f6g7h Environment Production
 \`\`\`
 
-### delete_s3_buckets.py
+### delete-s3-bucket.py
 
 バケット一覧を表示し、選択したバケットを削除します。
 
 \`\`\`bash
-python delete_s3_buckets.py
+python delete-s3-bucket.py
 \`\`\`
 
 実行後に表示されるS3バケット一覧から、削除したいバケットの番号をカンマ区切りで入力してください。例えば、`1,3,5` のように入力すると、選択されたバケットとその中のすべてのコンテンツが削除されます。
+
+### delete-vpcs.py
+
+指定したVPC内のすべてのリソースを削除し、VPC自体を削除します。
+
+\`\`\`bash
+python delete-vpcs.py <vpc-id>
+\`\`\`
+
+例：
+
+\`\`\`bash
+python delete-vpcs.py vpc-0a1b2c3d4e5f6g7h
+\`\`\`
+
+### install-and-update-cli-v2.sh
+
+AWS CLI v2をインストールまたは更新します。
+
+\`\`\`bash
+sh install-and-update-cli-v2.sh
+\`\`\`
 
 ## ライセンス
 
