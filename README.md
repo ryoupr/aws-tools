@@ -28,22 +28,22 @@
 
 1. リポジトリをクローンします。
 
-    \`\`\`bash
+    ```bash
     git clone https://github.com/ryoupr/aws-tools.git
     cd aws-tools
-    \`\`\`
+    ```
 
 2. 必要なPythonパッケージをインストールします。
 
-    \`\`\`bash
+    ```bash
     pip install boto3
-    \`\`\`
+    ```
 
 3. AWS CLIを設定します。
 
-    \`\`\`bash
+    ```bash
     aws configure
-    \`\`\`
+    ```
 
 ## スクリプトの使用方法
 
@@ -51,23 +51,23 @@
 
 EBSボリュームにタグを付与します。
 
-\`\`\`bash
+```bash
 sh attach_tag_to_ebs.sh <volume-id> <tag-key> <tag-value>
-\`\`\`
+```
 
 例：
 
-\`\`\`bash
+```bash
 sh attach_tag_to_ebs.sh vol-0a1b2c3d4e5f6g7h Environment Production
-\`\`\`
+```
 
 ### delete-s3-bucket.py
 
 バケット一覧を表示し、選択したバケットを削除します。
 
-\`\`\`bash
+```bash
 python delete-s3-bucket.py
-\`\`\`
+```
 
 実行後に表示されるS3バケット一覧から、削除したいバケットの番号をカンマ区切りで入力してください。例えば、`1,3,5` のように入力すると、選択されたバケットとその中のすべてのコンテンツが削除されます。
 
@@ -75,23 +75,23 @@ python delete-s3-bucket.py
 
 指定したVPC内のすべてのリソースを削除し、VPC自体を削除します。
 
-\`\`\`bash
+```bash
 python delete-vpcs.py <vpc-id>
-\`\`\`
+```
 
 例：
 
-\`\`\`bash
+```bash
 python delete-vpcs.py vpc-0a1b2c3d4e5f6g7h
-\`\`\`
+```
 
 ### install-and-update-cli-v2.sh
 
 AWS CLI v2をインストールまたは更新します。
 
-\`\`\`bash
+```bash
 sh install-and-update-cli-v2.sh
-\`\`\`
+```
 
 ## ライセンス
 
