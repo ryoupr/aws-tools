@@ -33,7 +33,7 @@ for volume_id in "${volume_ids[@]}"; do
 done
 
 tag_key="Owner"
-tag_value="zeon"
+tag_value="test"
 
 # 各ボリュームIDに対してタグを追加
 for volume_id in "${volume_ids[@]}"; do
