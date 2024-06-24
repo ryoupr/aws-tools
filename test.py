@@ -1,5 +1,7 @@
 import boto3
+import botocore
 import argparse
+import time
 
 def list_vpcs():
     client = boto3.client('ec2')
@@ -42,6 +44,9 @@ def delete_vpc_resources(vpc_id):
         client.delete_nat_gateway(NatGatewayId=nat['NatGatewayId'])
     current_step += 1
     print_progress(current_step)
+
+    # Wait for NAT Gateways to be deleted
+    time.sleep(10)
 
     # Release Elastic IPs
     print("Releasing Elastic IPs...")
@@ -118,13 +123,21 @@ def delete_vpc_resources(vpc_id):
     current_step += 1
     print_progress(current_step)
 
+    # Additional wait time to ensure dependencies are fully removed
+    time.sleep(10)
+
     # Delete the VPC
     print("Deleting the VPC...")
-    vpc.delete()
-    current_step += 1
-    print_progress(current_step)
-
-    print("All resources deleted successfully!")
+    try:
+        vpc.delete()
+        current_step += 1
+        print_progress(current_step)
+        print("All resources deleted successfully!")
+    except botocore.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == 'DependencyViolation':
+            print("Error: The VPC has dependencies and cannot be deleted. Please check for remaining resources and try again.")
+        else:
+            print(f"Unexpected error: {e}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Delete all resources within a VPC.")
