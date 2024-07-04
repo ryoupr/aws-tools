@@ -28,10 +28,16 @@ def delete_vpc_resources(vpc_id):
     current_step += 1
     print_progress(current_step)
 
-    # Delete Network Interfaces
-    print("Deleting Network Interfaces...")
+    # Detach and delete Network Interfaces
+    print("Detaching and Deleting Network Interfaces...")
     for eni in vpc.network_interfaces.all():
-        eni.delete()
+        try:
+            # Check if the network interface is attached to an instance
+            if eni.attachment:
+                client.detach_network_interface(AttachmentId=eni.attachment['AttachmentId'])
+            client.delete_network_interface(NetworkInterfaceId=eni.id)
+        except client.exceptions.ClientError as e:
+            print(f"Error deleting network interface {eni.id}: {e}")
     current_step += 1
     print_progress(current_step)
 
